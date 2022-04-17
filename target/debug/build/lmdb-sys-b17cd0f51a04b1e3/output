@@ -1,0 +1,224 @@
+cargo:rerun-if-env-changed=LIBLMDB_NO_PKG_CONFIG
+cargo:rerun-if-env-changed=PKG_CONFIG_x86_64-pc-windows-msvc
+cargo:rerun-if-env-changed=PKG_CONFIG_x86_64_pc_windows_msvc
+cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+cargo:rerun-if-env-changed=PKG_CONFIG
+cargo:rerun-if-env-changed=LIBLMDB_STATIC
+cargo:rerun-if-env-changed=LIBLMDB_DYNAMIC
+cargo:rerun-if-env-changed=PKG_CONFIG_ALL_STATIC
+cargo:rerun-if-env-changed=PKG_CONFIG_ALL_DYNAMIC
+cargo:rerun-if-env-changed=PKG_CONFIG_PATH_x86_64-pc-windows-msvc
+cargo:rerun-if-env-changed=PKG_CONFIG_PATH_x86_64_pc_windows_msvc
+cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_x86_64-pc-windows-msvc
+cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_x86_64_pc_windows_msvc
+cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_x86_64-pc-windows-msvc
+cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_x86_64_pc_windows_msvc
+cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+TARGET = Some("x86_64-pc-windows-msvc")
+HOST = Some("x86_64-pc-windows-msvc")
+CC_x86_64-pc-windows-msvc = None
+CC_x86_64_pc_windows_msvc = None
+HOST_CC = None
+CC = None
+CFLAGS_x86_64-pc-windows-msvc = None
+CFLAGS_x86_64_pc_windows_msvc = None
+HOST_CFLAGS = None
+CFLAGS = None
+CRATE_CC_NO_DEFAULTS = None
+CARGO_CFG_TARGET_FEATURE = Some("fxsr,sse,sse2")
+DEBUG = Some("true")
+running: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-O2" "-Z7" "-Brepro" "-W4" "-Foc:\\Users\\14767\\master-term2\\csci2270\\project\\lmdb_test\\target\\debug\\build\\lmdb-sys-b17cd0f51a04b1e3\\out\\mdb.o" "-c" "C:\\Users\\14767\\.cargo\\registry\\src\\github.com-1ecc6299db9ec823\\lmdb-sys-0.8.0\\lmdb\\libraries\\liblmdb\\mdb.c"
+mdb.c
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(1501): warning C4996: 'strerror': This function or variable may be unsafe. Consider using strerror_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(1531): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(1825): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(1919): warning C4389: '==': signed/unsigned mismatch
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(1946): warning C4389: '==': signed/unsigned mismatch
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2008): warning C4267: '+=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2047): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2022): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2213): warning C4127: conditional expression is constant
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2216): warning C4127: conditional expression is constant
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2252): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2272): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2158): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2433): warning C4267: '=': conversion from 'size_t' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2433): warning C4127: conditional expression is constant
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2887): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2888): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3323): warning C4267: '=': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3324): warning C4267: 'function': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3263): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3467): warning C4244: '=': conversion from 'unsigned int' to 'unsigned char', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3473): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3477): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3513): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3516): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3531): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3586): warning C4456: declaration of 'i' hides previous local declaration
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3408): note: see declaration of 'i'
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3838): warning C4244: '+=': conversion from '__int64' to 'off_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3951): warning C4267: '=': conversion from 'size_t' to 'LONG', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4205): warning C4996: 'wcscpy': This function or variable may be unsafe. Consider using wcscpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4193): warning C4100: 'mode': unreferenced formal parameter
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4297): warning C4996: 'GetVersion': was declared deprecated
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4465): warning C4100: 'ptr': unreferenced formal parameter
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4465): warning C4100: 'module': unreferenced formal parameter
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4682): warning C4244: 'function': conversion from 'mdb_hash_t' to 'unsigned long', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4798): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4799): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4942): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5189): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5192): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5197): warning C4244: 'return': conversion from 'ssize_t' to 'int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5223): warning C4244: 'return': conversion from 'ssize_t' to 'int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5315): warning C4244: '=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5412): warning C4456: declaration of 'x' hides previous local declaration
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5397): note: see declaration of 'x'
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5579): warning C4457: declaration of 'flags' hides function parameter
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5555): note: see declaration of 'flags'
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5671): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5679): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5691): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5692): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6044): warning C4244: '=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6081): warning C4244: '=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6297): warning C4244: '=': conversion from 'int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6517): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6632): warning C4267: '=': conversion from 'size_t' to 'uint16_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6714): warning C4267: '=': conversion from 'size_t' to 'uint16_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6720): warning C4267: '=': conversion from 'size_t' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6776): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6785): warning C4244: '=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6792): warning C4244: '=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6855): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6863): warning C4267: '=': conversion from 'size_t' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6910): warning C4456: declaration of 'mp' hides previous local declaration
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6497): note: see declaration of 'mp'
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6963): warning C4456: declaration of 'mp' hides previous local declaration
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6497): note: see declaration of 'mp'
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6986): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6811): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7146): warning C4244: '=': conversion from 'uint32_t' to 'uint16_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7148): warning C4244: '=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7263): warning C4267: '-=': conversion from 'size_t' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7303): warning C4267: '=': conversion from 'size_t' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7311): warning C4267: '=': conversion from 'size_t' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7312): warning C4244: '=': conversion from 'unsigned int' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7314): warning C4267: '=': conversion from 'size_t' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7316): warning C4267: '=': conversion from 'size_t' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7316): warning C4127: conditional expression is constant
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7276): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7377): warning C4267: '+=': conversion from 'size_t' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7396): warning C4244: '+=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7405): warning C4244: '+=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7439): warning C4333: '>>': right shift by too large amount, data loss
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7762): warning C4244: '-=': conversion from 'int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7768): warning C4244: '-=': conversion from 'int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7775): warning C4267: '=': conversion from 'size_t' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7848): warning C4244: '=': conversion from 'unsigned int' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7849): warning C4244: '=': conversion from 'unsigned int' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7875): warning C4244: '=': conversion from 'unsigned int' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7876): warning C4244: '=': conversion from 'unsigned int' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7898): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8060): warning C4244: '=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8147): warning C4244: '+=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8165): warning C4244: '=': conversion from 'unsigned int' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8166): warning C4244: '=': conversion from 'unsigned int' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8643): warning C4244: '-=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8644): warning C4244: '+=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8645): warning C4244: '+=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8646): warning C4244: '-=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8660): warning C4267: '-=': conversion from 'size_t' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8668): warning C4267: '-=': conversion from 'size_t' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8669): warning C4244: '=': conversion from 'int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8676): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8678): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8690): warning C4244: '=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8825): warning C4244: '=': conversion from 'int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8844): warning C4244: 'function': conversion from 'int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8941): warning C4244: '-=': conversion from 'int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9168): warning C4457: declaration of 'pg' hides function parameter
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9119): note: see declaration of 'pg'
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9226): warning C4457: declaration of 'pg' hides function parameter
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9119): note: see declaration of 'pg'
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9260): warning C4267: '=': conversion from 'size_t' to 'unsigned short', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9260): warning C4127: conditional expression is constant
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9447): warning C4267: '=': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9483): warning C4267: '=': conversion from 'size_t' to 'DWORD', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9772): warning C4456: declaration of 'dummy' hides previous local declaration
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9692): note: see declaration of 'dummy'
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9785): warning C4244: '=': conversion from 'int' to 'unsigned char', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9762): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C and C++ conformant name: _strdup. See online help for details.
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9916): warning C4244: '=': conversion from 'unsigned int' to 'indx_t', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(10033): warning C4100: 'env': unreferenced formal parameter
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(10056): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(1509) : warning C4172: returning address of local variable or temporary: buf
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(10151) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(10215) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2069) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4733) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2700) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2700) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2727) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2743) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2743) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4934) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4934) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4990) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(4990) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2863) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9435) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9435) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9473) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2254) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2288) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2219) : warning C4701: potentially uninitialized local variable 'last' used
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2421) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(2421) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7142) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5495) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7284) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5538) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(5620) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8578) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8589) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9286) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9286) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(9322) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7817) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7817) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(8052) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6594) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6602) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(6774) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7037) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7114) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(7114) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3473) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3473) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3619) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3619) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\mdb.c(3619) : warning C4706: assignment within conditional expression
+exit code: 0
+running: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe" "-nologo" "-MD" "-O2" "-Z7" "-Brepro" "-W4" "-Foc:\\Users\\14767\\master-term2\\csci2270\\project\\lmdb_test\\target\\debug\\build\\lmdb-sys-b17cd0f51a04b1e3\\out\\midl.o" "-c" "C:\\Users\\14767\\.cargo\\registry\\src\\github.com-1ecc6299db9ec823\\lmdb-sys-0.8.0\\lmdb\\libraries\\liblmdb\\midl.c"
+midl.c
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\midl.c(44): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\midl.c(146): warning C4267: '+=': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\midl.c(176): warning C4267: 'function': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\midl.c(123) : warning C4706: assignment within conditional expression
+C:\Users\14767\.cargo\registry\src\github.com-1ecc6299db9ec823\lmdb-sys-0.8.0\lmdb\libraries\liblmdb\midl.c(149) : warning C4706: assignment within conditional expression
+exit code: 0
+AR_x86_64-pc-windows-msvc = None
+AR_x86_64_pc_windows_msvc = None
+HOST_AR = None
+AR = None
+running: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\lib.exe" "-out:c:\\Users\\14767\\master-term2\\csci2270\\project\\lmdb_test\\target\\debug\\build\\lmdb-sys-b17cd0f51a04b1e3\\out\\liblmdb.a" "-nologo" "c:\\Users\\14767\\master-term2\\csci2270\\project\\lmdb_test\\target\\debug\\build\\lmdb-sys-b17cd0f51a04b1e3\\out\\mdb.o" "c:\\Users\\14767\\master-term2\\csci2270\\project\\lmdb_test\\target\\debug\\build\\lmdb-sys-b17cd0f51a04b1e3\\out\\midl.o"
+exit code: 0
+cargo:rustc-link-lib=static=lmdb
+cargo:rustc-link-search=native=c:\Users\14767\master-term2\csci2270\project\lmdb_test\target\debug\build\lmdb-sys-b17cd0f51a04b1e3\out

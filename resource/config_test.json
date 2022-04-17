@@ -1,0 +1,16 @@
+{
+
+  "example": "- 1131523501 2005.11.09 aadmin1 Nov 10 00:05:01 src@aadmin1 in.tftpd[14620]: tftp: client does not accept options",
+  "regex": "^(-) (\\S+) (\\d{4}.\\d{2}.\\d{2}) (\\S+) (\\S+ \\d{2} \\d{2}:\\d{2}:\\d{2}) (\\S+@\\S+) (\\S+\\[\\d{5}\\]:) (\\S+:) [\\S+ ]*$",
+  "matches": {
+    "1": "prefix",
+    "2": "logid",
+    "3": "date",
+    "4": "role",
+    "5": "time",
+    "6": "address",
+    "7": "index",
+    "8": "type",
+    "9": "message"
+  }
+}

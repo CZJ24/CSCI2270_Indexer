@@ -1,0 +1,3 @@
+- 1131523501 2005.11.09 aadmin1 Nov 10 00:05:01 src@aadmin1 in.tftpd[14620]: tftp: client does not accept options
+- 1131524071 2005.11.09 tbird-admin1 Nov 10 00:14:31 local@tbird-admin1 postfix/postdrop[10896]: warning: unable to look up public/pickup: No such file or directory
+- 1131533399 2005.11.09 tbird-admin1 Nov 10 02:49:59 local@tbird-admin1 postfix/postdrop[15950]: warning: unable to look up public/pickup: No such file or directory
