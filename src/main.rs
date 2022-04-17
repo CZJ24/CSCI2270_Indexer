@@ -83,7 +83,9 @@ fn main() {
 }
 
 fn test2(mut cursor:RwCursor ){
-    let mut file = File::open("./dataset/simple.json").unwrap();
+    
+    let mut file = File::open("./dataset/thunder_bird2.json").unwrap();
+    //let mut file = File::open("./dataset/simple.json").unwrap();
     let mut buff = String::new();
     file.read_to_string(&mut buff).unwrap();
     let resp: Response = serde_json::from_str(&buff).unwrap();
@@ -96,7 +98,10 @@ fn test2(mut cursor:RwCursor ){
         
         match res{
             Ok(file) => file,
-            Err(error) => panic!("Problem with put: {:?}", error),
+            Err(error) => {
+                println!("{}", value);
+                //panic!("Problem with put: {:?}", error)
+            },
         };
     }
 
