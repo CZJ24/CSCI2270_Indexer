@@ -1,6 +1,6 @@
 use std::path::Path;
 use std::str;
-use lmdb::{EnvironmentBuilder,Environment, DatabaseFlags,RwTransaction,WriteFlags, RwCursor,Cursor};
+use lmdb::{EnvironmentBuilder,Environment, DatabaseFlags,RwTransaction,WriteFlags, RwCursor,Cursor,Transaction};
 use tempfile::tempdir;
 
 use serde_derive::Deserialize;
@@ -64,9 +64,11 @@ fn main() {
         Err(error) => panic!("Problem begin rwCursor: {:?}", error),
     };
 
+    
     //basic_util_test(cursor);
     //test_timeStamp(cursor);
     read_multi_json_test_timeRange(cursor);
+    //test_bug(cursor);
 
 }
 fn basic_util_test(mut cursor:RwCursor ){
@@ -95,6 +97,49 @@ fn basic_util_test(mut cursor:RwCursor ){
 
     println!("{}", v);
 
+}
+fn test_bug(mut cursor:RwCursor){
+    for x in 1..100 {
+        let x :u64 = x;
+        let res = RwCursor::put( &mut cursor, &x.to_be_bytes(), &x.to_be_bytes(), WriteFlags::NO_OVERWRITE);
+        match res{
+            Ok(file) => file,
+            Err(error) => panic!("Problem with put: {:?}", error),
+        };
+    }
+
+    let key:u64 = 50;
+    let pair = Cursor::get(&cursor, Some(&key.to_be_bytes()), None, 16);
+    //let pair = Cursor::get(&cursor, None, Some(&key.to_be_bytes()), 15);
+
+    let pair = match pair{
+        Ok(file) => file,
+        Err(error) => panic!("Problem with get: {:?}", error),
+    };
+    let (_,v) = pair;
+    println!("{}", u64::from_be_bytes(v.try_into().unwrap()));
+    // let v = str::from_utf8(v);
+    // let v = match v{
+    //     Ok(file) => file,
+    //     Err(error) => panic!("Problem with v: {:?}", error),
+    // };
+
+    // println!("{}", v);
+    // let mut itr = Cursor:: iter_start(&mut cursor);
+    // while true {
+    //     let tmp = itr.next();
+    //     match tmp {
+    //         // The division was valid
+    //         Some(x) => {
+    //             let (_,a) = x;
+    //             println!("{}", u64::from_be_bytes(a.try_into().unwrap()));
+                
+                
+    //         },
+    //         // The division was invalid
+    //         None    => break,
+    //     }
+    // }
 }
 fn test_timeStamp(mut cursor:RwCursor ){
     
@@ -241,7 +286,7 @@ fn read_multi_json_test_timeRange(mut cursor:RwCursor ){
             }
         }
     }
-    let mut key:u64 = 1131567194;
+    let mut key:u64 = 1131566949;
     let mut key_end = key + time_range;
 
     println!("get!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -268,14 +313,14 @@ fn read_multi_json_test_timeRange(mut cursor:RwCursor ){
     let tmp_end = key_end.to_string();
     println!("tmp_start={}", tmp_start);
     println!("tmp_end={}", tmp_end);
-    let pair = Cursor::get(&cursor, Some(&key.to_be_bytes()), None, 0);
+    let pair = Cursor::get(&cursor, Some(&key.to_be_bytes()), None, 16);
 
     let pair = match pair{
         Ok(file) => file,
         Err(error) => panic!("Problem with get: {:?}", error),
     };
     let (_,v) = pair;
-    
+    //println!("{}", u64::from_be_bytes(v.try_into().unwrap()));
     let v = str::from_utf8(v);
     let v = match v{
         Ok(file) => file,
