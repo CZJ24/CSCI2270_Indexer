@@ -21,26 +21,28 @@ struct Element {
     entry: String,
 }
 
-#[derive(Serialize)]
-struct Timerange {
-    starttime: u64,
-    endtime: u64,
-}
+// #[derive(Serialize)]
+// struct Timerange {
+//     starttime: u64,
+//     endtime: u64,
+// }
 fn main() {
     //let path = Path::new("");
     //let str = "test";
     let tempdir = tempdir().unwrap();
     
-    let env_builder = Environment::new();
+    let mut env_builder = Environment::new();
+    let env_builder = EnvironmentBuilder::set_map_size(& mut env_builder, 0xFFFFFFFF);
     //let env = EnvironmentBuilder::open(&env_builder, path);
     let env = EnvironmentBuilder::open(&env_builder, tempdir.path());
     let env = match env{
         Ok(file) => file,
         Err(error) => panic!("Problem opening the file: {:?}", error),
     };
-    
+
+    //for timestamp test
     //let db = Environment::create_db(&env, None, DatabaseFlags::DUP_SORT);
-    let db = Environment::create_db(&env, None, DatabaseFlags::INTEGER_KEY);
+    let db = Environment::create_db(&env, None, DatabaseFlags:: INTEGER_KEY);
 
     let db = match db{
         Ok(file) => file,
@@ -111,13 +113,13 @@ fn test_timeStamp(mut cursor:RwCursor ){
         match res{
             Ok(file) => file,
             Err(error) => {
-                println!("{}", value);
+                //println!("{}", value);
                 //panic!("Problem with put: {:?}", error)
             },
         };
     }
 
-    let key:u64 =1131566461;
+    let key:u64 =1131566520;
     let mut itr = Cursor:: iter_dup_of(&mut cursor, &key.to_be_bytes());
     let mut itr = match itr{
         Ok(file) => file,
@@ -151,14 +153,7 @@ fn is_hidden(entry: &DirEntry) -> bool {
          .map(|s| s.starts_with("."))
          .unwrap_or(false)
 }
-fn demo<T>(v: Vec<T>) -> [T; 16] where T: Copy {
-    let slice = v.as_slice();
-    let array: [T; 16] = match slice.try_into() {
-        Ok(ba) => ba,
-        Err(_) => panic!("Expected a Vec of length {} but it was {}", 16, v.len()),
-    };
-    array
-}
+
 fn read_multi_json_test_timeRange(mut cursor:RwCursor ){
     let mut key_start = 0;
     let mut key_end = 0;
@@ -190,6 +185,11 @@ fn read_multi_json_test_timeRange(mut cursor:RwCursor ){
                     else {
                         println!("key_start={}", key_start);
                         println!("key_end={}", key_end);
+
+                        let tmp_start = key_start.to_string();
+                        let tmp_end = key_end.to_string();
+                        println!("tmp_start={}", tmp_start);
+                        println!("tmp_end={}", tmp_end);
                         println!("-------------- ");
                         // let mut tmp_start = key_start.to_be_bytes();
                         // println!(" tmp_start1={:?}", tmp_start);
@@ -205,37 +205,30 @@ fn read_multi_json_test_timeRange(mut cursor:RwCursor ){
                         // println!(" tmp_start3={:?}", tmp_start);
                         // println!("-------------- ");
                         
-                        // //println!("s={}", s);
+                        //println!("s={}", s);
                         // let res = RwCursor::put( &mut cursor, &tmp_start, &s, WriteFlags::APPEND);
-                        let tmp = Timerange{
-                            starttime: key_start,
-                            endtime: key_end
-                        };
-                        //let encoded: Vec<u8> = bincode::serialize(&entity).unwrap();
-                        let bytes: Vec<u8> = bincode::serialize(&tmp).unwrap();
-                        let bytes = demo(bytes);
-                        println!("s={:?}", bytes);
-                        let res = RwCursor::put( &mut cursor, &bytes, &s, WriteFlags::NO_OVERWRITE);
+                        
+                        let res = RwCursor::put( &mut cursor, &key_start.to_be_bytes(), &s, WriteFlags::NO_OVERWRITE);
 
         
                         match res{
                             Ok(file) => file,
                             Err(error) => {
-                                let pair = Cursor::get(&cursor, Some(&bytes), None, 0);
+                                // let pair = Cursor::get(&cursor, Some(tmp_start.as_bytes()), None, 0);
 
-                                let pair = match pair{
-                                    Ok(file) => file,
-                                    Err(error) => panic!("Problem with get: {:?}", error),
-                                };
-                                let (_,v) = pair;
+                                // let pair = match pair{
+                                //     Ok(file) => file,
+                                //     Err(error) => panic!("Problem with get: {:?}", error),
+                                // };
+                                // let (_,v) = pair;
                                 
-                                let v = str::from_utf8(v);
-                                let v = match v{
-                                    Ok(file) => file,
-                                    Err(error) => panic!("Problem with v: {:?}", error),
-                                };
+                                // let v = str::from_utf8(v);
+                                // let v = match v{
+                                //     Ok(file) => file,
+                                //     Err(error) => panic!("Problem with v: {:?}", error),
+                                // };
 
-                                println!("{}", v);
+                                // println!("{}", v);
                                 panic!("Problem with put: {:?}", error)
                             },
                         };
@@ -248,9 +241,11 @@ fn read_multi_json_test_timeRange(mut cursor:RwCursor ){
             }
         }
     }
-    let mut key_start = 1131567255;
-    let mut key_end = key_start + time_range;
-    println!("key_start={}", key_start);
+    let mut key:u64 = 1131567194;
+    let mut key_end = key + time_range;
+
+    println!("get!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    println!("key_start={}", key);
     println!("key_end={}", key_end);
     // let tmp_start = key_start.to_be_bytes();
     // let tmp_end = key_end.to_be_bytes();
@@ -267,14 +262,13 @@ fn read_multi_json_test_timeRange(mut cursor:RwCursor ){
 
     // tmp_start[4..8].clone_from_slice(&tmp_end[4..8]);
     // println!(" tmp_start3={:?}", tmp_start);
-    let tmp = Timerange{
-        starttime: key_start,
-        endtime: key_end
-    };
-    let bytes: Vec<u8> = bincode::serialize(&tmp).unwrap();
-    let bytes = demo(bytes);
+    
     //let pair = Cursor::get(&cursor, Some(&tmp_start), None, 0);
-    let pair = Cursor::get(&cursor, Some(&bytes), None, 0);
+    let tmp_start = key.to_string();
+    let tmp_end = key_end.to_string();
+    println!("tmp_start={}", tmp_start);
+    println!("tmp_end={}", tmp_end);
+    let pair = Cursor::get(&cursor, Some(&key.to_be_bytes()), None, 0);
 
     let pair = match pair{
         Ok(file) => file,
