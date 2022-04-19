@@ -1,5 +1,6 @@
 use std::path::Path;
 use std::str;
+//use std::str::pattern::StrSearcher;
 use lmdb::{EnvironmentBuilder,Environment, DatabaseFlags,RwTransaction,WriteFlags, RwCursor,Cursor,Transaction};
 use tempfile::tempdir;
 
@@ -10,6 +11,7 @@ use std::fs::File;
 use std::io::Read;
 use walkdir::{DirEntry, WalkDir};
 use bincode;
+use std::collections::BTreeMap;
 #[derive(Deserialize)]
 struct Response {
     dataset: Vec<Element>,
@@ -67,8 +69,9 @@ fn main() {
     
     //basic_util_test(cursor);
     //test_timeStamp(cursor);
-    read_multi_json_test_timeRange(cursor);
+    //read_multi_json_test_timeRange(cursor);
     //test_bug(cursor);
+    test_btreeMap(cursor);
 
 }
 fn basic_util_test(mut cursor:RwCursor ){
@@ -96,6 +99,36 @@ fn basic_util_test(mut cursor:RwCursor ){
     };
 
     println!("{}", v);
+
+}
+fn test_btreeMap(mut cursor:RwCursor ){
+    let mut movie_reviews = BTreeMap::new();
+
+    let key1:u64 = 123;
+    let mut v1:Vec<String> = Vec::new();
+    v1.push("abc".to_string());
+    v1.push("def".to_string());
+
+    let key2:u64 = 456;
+    let mut v2:Vec<String> = Vec::new();
+    v2.push("qaz".to_string());
+    v2.push("wsx".to_string());
+    // review some movies.
+    movie_reviews.insert(key1,v1);
+    movie_reviews.insert(key2,v2);
+
+
+    let to_find = [key1, key2];
+    for movie in &to_find {
+        match movie_reviews.get(movie) {
+        Some(review) => {
+            for (pos, e) in review.iter().enumerate() {
+                println!("{}: {:?}", pos, e);
+            }
+        },
+        None => println!("{} is unreviewed.", movie)
+        }
+    }
 
 }
 fn test_bug(mut cursor:RwCursor){
