@@ -1,3 +1,4 @@
+use std::collections::btree_map;
 use std::path::Path;
 use std::str;
 //use std::str::pattern::StrSearcher;
@@ -129,7 +130,45 @@ fn test_btreeMap(mut cursor:RwCursor ){
         None => println!("{} is unreviewed.", movie)
         }
     }
+    let s_res = bincode::serialize(&movie_reviews);
+    let s_res = match s_res{
+        Ok(file) => file,
+        Err(error) => panic!("Problem with get: {:?}", error),
+    };
 
+    let key:u64 = 2;
+    let res = RwCursor::put( &mut cursor, &key.to_be_bytes(), &s_res, WriteFlags::APPEND);
+
+    match res{
+        Ok(file) => file,
+        Err(error) => panic!("Problem with put: {:?}", error),
+    };
+
+    let pair = Cursor::get(&cursor, Some(&key.to_be_bytes()), None, 0);
+
+    let pair = match pair{
+        Ok(file) => file,
+        Err(error) => panic!("Problem with get: {:?}", error),
+    };
+    let (_,v) = pair;
+    
+    let v:Result<BTreeMap<u64, Vec<String>>, Box<bincode::ErrorKind>> = bincode::deserialize(v);
+    let v = match v{
+        Ok(file) => file,
+        Err(error) => panic!("Problem with v: {:?}", error),
+    };
+
+    println!("-------------");
+    for movie in &to_find {
+        match v.get(movie) {
+        Some(review) => {
+            for (pos, e) in review.iter().enumerate() {
+                println!("{}: {:?}", pos, e);
+            }
+        },
+        None => println!("{} is unreviewed.", movie)
+        }
+    }
 }
 fn test_bug(mut cursor:RwCursor){
     for x in 1..100 {
