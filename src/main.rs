@@ -67,12 +67,119 @@ fn main() {
         Err(error) => panic!("Problem begin rwCursor: {:?}", error),
     };
 
-    
+    search_with_btreeMap(cursor);
     //basic_util_test(cursor);
     //test_timeStamp(cursor);
     //read_multi_json_test_timeRange(cursor);
     //test_bug(cursor);
-    test_btreeMap(cursor);
+    //test_btreeMap(cursor);
+
+}
+
+fn search_with_btreeMap(mut cursor:RwCursor ){
+    let mut key_start = 0;
+    let mut key_end = 0;
+    let mut key_tmp:u64 = 0;
+    let time_range = 60;
+    let mut btree:BTreeMap<u64, Vec<String>> = BTreeMap::new();
+
+    let mut v:Vec<String> = Vec::new();
+
+    let walker = WalkDir::new("./log2json/json_directory").into_iter();
+    for entry in walker.filter_entry(|e| !is_hidden(e)) {
+        let entry = entry.unwrap();
+        if entry.metadata().unwrap().is_file() {
+            // println!("{}", entry.path().display());
+            let d_name = String::from(entry.path().to_string_lossy());
+            // println!("{}", d_name);
+            let mut file = File::open(d_name).unwrap();
+            let mut buff = String::new();
+            file.read_to_string(&mut buff).unwrap();
+            let resp: Response = serde_json::from_str(&buff).unwrap();
+            for element in resp.dataset {
+                if key_start == 0 {
+                    key_start = element.timestamp;
+                    key_end = key_start + time_range;  
+                    key_tmp = element.timestamp;  
+                    
+                    
+                    v.push(element.entry);
+                    
+                }
+                else {
+                    if element.timestamp >= key_start && element.timestamp <= key_end {
+                        if element.timestamp==key_tmp{
+                            v.push(element.entry);
+                        }
+                        else{
+                            btree.insert(key_tmp, v);
+                            v= Vec::new();
+                            v.push(element.entry);
+                            key_tmp = element.timestamp;
+                        }
+                    }
+                    else {
+                        println!("key_start={}", key_start);
+                        println!("key_end={}", key_end);
+
+                        println!("-------------- ");
+                        
+                        let s_res = bincode::serialize(&btree);
+                        let s_res = match s_res{
+                            Ok(file) => file,
+                            Err(error) => panic!("Problem with get: {:?}", error),
+                        };
+                        let res = RwCursor::put( &mut cursor, &key_start.to_be_bytes(), &s_res, WriteFlags::NO_OVERWRITE);
+
+        
+                        match res{
+                            Ok(file) => file,
+                            Err(error) => {
+                                
+                                panic!("Problem with put: {:?}", error)
+                            },
+                        };
+                        btree = BTreeMap::new();
+
+                        v = Vec::new();
+                        key_start = key_end+1;
+                        key_end = key_start + time_range;
+                        key_tmp = element.timestamp;
+                        v.push(element.entry);
+                    }
+                }
+            }
+        }
+    }
+    let mut key:u64 = 1131566461;
+    let mut key_end = key + time_range;
+
+    println!("get!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    println!("key_start={}", key);
+    println!("key_end={}", key_end);
+    
+
+    let pair = Cursor::get(&cursor, Some(&key.to_be_bytes()), None, 16);
+
+    let pair = match pair{
+        Ok(file) => file,
+        Err(error) => panic!("Problem with get: {:?}", error),
+    };
+    let (_,v) = pair;
+    let v:Result<BTreeMap<u64, Vec<String>>, Box<bincode::ErrorKind>> = bincode::deserialize(v);
+    let v = match v{
+        Ok(file) => file,
+        Err(error) => panic!("Problem with v: {:?}", error),
+    };
+    match v.get(&key) {
+        Some(review) => {
+            for (pos, e) in review.iter().enumerate() {
+                println!("{}: {:?}", pos, e);
+            }
+        },
+        None => println!("{} is unmatched.", key)
+    }
+ 
 
 }
 fn basic_util_test(mut cursor:RwCursor ){
@@ -103,6 +210,8 @@ fn basic_util_test(mut cursor:RwCursor ){
 
 }
 fn test_btreeMap(mut cursor:RwCursor ){
+
+
     let mut movie_reviews = BTreeMap::new();
 
     let key1:u64 = 123;
