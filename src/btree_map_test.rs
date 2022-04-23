@@ -2,7 +2,7 @@ use std::collections::btree_map;
 use std::path::Path;
 use std::str;
 //use std::str::pattern::StrSearcher;
-use lmdb::{EnvironmentBuilder,Environment, DatabaseFlags,RwTransaction,WriteFlags, RwCursor,Cursor,Transaction};
+use lmdb::{EnvironmentBuilder,Environment, DatabaseFlags,RwTransaction,WriteFlags, RwCursor,RoCursor,Cursor,Transaction,Database};
 use tempfile::tempdir;
 
 use serde_derive::Deserialize;
@@ -32,7 +32,9 @@ fn is_hidden(entry: &DirEntry) -> bool {
          .unwrap_or(false)
 }
 
-pub fn search_with_btreeMap(mut cursor:RwCursor ){
+//pub fn store_with_btreeMap(mut cursor:RwCursor ){
+pub fn store_with_btreeMap(mut trans:RwTransaction, mut db:Database ){   
+
     let mut key_start = 0;
     let mut key_end = 0;
     let mut key_tmp:u64 = 0;
@@ -87,7 +89,8 @@ pub fn search_with_btreeMap(mut cursor:RwCursor ){
                             Ok(file) => file,
                             Err(error) => panic!("Problem with get: {:?}", error),
                         };
-                        let res = RwCursor::put( &mut cursor, &key_start.to_be_bytes(), &s_res, WriteFlags::NO_OVERWRITE);
+                        // let res = RwCursor::put( &mut cursor, &key_start.to_be_bytes(), &s_res, WriteFlags::NO_OVERWRITE);
+                        let res = RwTransaction::put( &mut trans,db, &key_start.to_be_bytes(), &s_res, WriteFlags::NO_OVERWRITE);
 
         
                         match res{
@@ -109,6 +112,16 @@ pub fn search_with_btreeMap(mut cursor:RwCursor ){
             }
         }
     }
+    let res = trans.commit();
+    match res{
+        Ok(file) => file,
+        Err(error) => panic!("Problem begin rwCursor: {:?}", error),
+    };
+    
+}
+
+pub fn search_with_btreeMap(mut cursor:RoCursor ){
+    let time_range = 60;
     let mut key:u64 = 1131566461;
     let mut key_end = key + time_range;
 
@@ -137,8 +150,7 @@ pub fn search_with_btreeMap(mut cursor:RwCursor ){
         },
         None => println!("{} is unmatched.", key)
     }
- 
-
+  
 }
 
 pub fn test_btreeMap(mut cursor:RwCursor ){

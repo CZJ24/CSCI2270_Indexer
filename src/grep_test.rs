@@ -2,7 +2,7 @@ use std::collections::btree_map;
 use std::path::Path;
 use std::str;
 //use std::str::pattern::StrSearcher;
-use lmdb::{EnvironmentBuilder,Environment, DatabaseFlags,RwTransaction,WriteFlags, RwCursor,Cursor,Transaction};
+use lmdb::{EnvironmentBuilder,Environment, DatabaseFlags,RwTransaction,WriteFlags, RwCursor,RoCursor,Cursor,Transaction,Database};
 use tempfile::tempdir;
 
 use serde_derive::Deserialize;
@@ -31,8 +31,8 @@ fn is_hidden(entry: &DirEntry) -> bool {
          .map(|s| s.starts_with("."))
          .unwrap_or(false)
 }
-
-pub fn read_multi_json_test_timeRange(mut cursor:RwCursor ){
+// pub fn store_with_string(mut cursor:RwCursor ){
+pub fn store_with_string(mut trans:RwTransaction, mut db:Database ){    
     let mut key_start = 0;
     let mut key_end = 0;
     let time_range = 60;
@@ -69,10 +69,10 @@ pub fn read_multi_json_test_timeRange(mut cursor:RwCursor ){
 
                         
                         //println!("{}", s);
-                        // let res = RwCursor::put( &mut cursor, &tmp_start, &s, WriteFlags::APPEND);
                         
-                        let res = RwCursor::put( &mut cursor, &key_start.to_be_bytes(), &s, WriteFlags::NO_OVERWRITE);
-
+                        
+                        // let res = RwCursor::put( &mut cursor, &key_start.to_be_bytes(), &s, WriteFlags::NO_OVERWRITE);
+                        let res = RwTransaction::put( &mut trans,db, &key_start.to_be_bytes(), &s, WriteFlags::NO_OVERWRITE);
         
                         match res{
                             Ok(file) => file,
@@ -94,6 +94,17 @@ pub fn read_multi_json_test_timeRange(mut cursor:RwCursor ){
             }
         }
     }
+    let res = trans.commit();
+    match res{
+        Ok(file) => file,
+        Err(error) => panic!("Problem begin rwCursor: {:?}", error),
+    };
+
+}
+
+pub fn search_with_string(mut cursor:RoCursor ){    
+
+    let time_range = 60;
     let mut key:u64 = 1131566461;
     let mut key_end = key + time_range;
 
