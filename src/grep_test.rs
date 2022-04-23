@@ -14,6 +14,7 @@ use walkdir::{DirEntry, WalkDir};
 use bincode;
 use std::collections::BTreeMap;
 use libc;
+use std::time::{Duration, Instant};
 #[derive(Deserialize)]
 struct Response {
     dataset: Vec<Element>,
@@ -39,6 +40,8 @@ pub fn store_with_string(mut trans:RwTransaction, mut db:Database ){
     let mut s = String::from("");
 
     let walker = WalkDir::new("./log2json/json_directory").into_iter();
+    //let walker = WalkDir::new("C:/Users/14767/master-term2/csci2270/project/log2json/json_directory").into_iter();
+    
     for entry in walker.filter_entry(|e| !is_hidden(e)) {
         let entry = entry.unwrap();
         if entry.metadata().unwrap().is_file() {
@@ -97,7 +100,7 @@ pub fn store_with_string(mut trans:RwTransaction, mut db:Database ){
     let res = trans.commit();
     match res{
         Ok(file) => file,
-        Err(error) => panic!("Problem begin rwCursor: {:?}", error),
+        Err(error) => panic!("Problem trans commit: {:?}", error),
     };
 
 }

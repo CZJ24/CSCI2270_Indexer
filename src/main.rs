@@ -1,6 +1,6 @@
 
 use std::path::Path;
-
+use std::time::{Duration, Instant};
 //use std::str::pattern::StrSearcher;
 use lmdb::{EnvironmentBuilder,Environment, DatabaseFlags,RwTransaction,RoTransaction,WriteFlags, RwCursor,Cursor,Transaction};
 use tempfile::tempdir;
@@ -23,13 +23,14 @@ fn main() {
     
 }
 fn open_db(){
-    let tempdir = tempdir().unwrap();
     let map_size:libc::size_t =  42949672960;
     let mut env_builder = Environment::new();
     let env_builder = EnvironmentBuilder::set_map_size(& mut env_builder, map_size);
 
-    let path = Path::new("./env");
-    println!("{}", tempdir.path().display());
+    //let path = Path::new("./env/env_btree_small");
+    let path = Path::new("./env/env_btree_big");
+    //let path = Path::new("./env/env_grep_small");
+    //let path = Path::new("./env/env_grep_big");
     let env = EnvironmentBuilder::open(&env_builder, path);
 
     let env = match env{
@@ -57,19 +58,24 @@ fn open_db(){
         Ok(file) => file,
         Err(error) => panic!("Problem begin roCursor: {:?}", error),
     };
+    //let start = Instant::now();
+    
     btree_map_test::search_with_btreeMap(cursor);
-
+  
+    // let duration = start.elapsed();
+    // println!("Time elapsed in search function() is: {:?}", duration);
+    
 }
 fn create_db(){
-    let tempdir = tempdir().unwrap();
     let map_size:libc::size_t =  42949672960;
     let mut env_builder = Environment::new();
     let env_builder = EnvironmentBuilder::set_map_size(& mut env_builder, map_size);
 
-    let path = Path::new("./env");
-    println!("{}", tempdir.path().display());
+    //let path = Path::new("./env/env_btree_small");
+    let path = Path::new("./env/env_btree_big");
+    //let path = Path::new("./env/env_grep_small");
+    //let path = Path::new("./env/env_grep_big");
     let env = EnvironmentBuilder::open(&env_builder, path);
-    //let env = EnvironmentBuilder::open(&env_builder, tempdir.path());
     let env = match env{
         Ok(file) => file,
         Err(error) => panic!("Problem opening the file: {:?}", error),
@@ -98,8 +104,13 @@ fn create_db(){
     //     Err(error) => panic!("Problem begin rwCursor: {:?}", error),
     // };
 
-    // btree_map_test::store_with_btreeMap(cursor);
+    //btree_map_test::store_with_btreeMap(cursor);
+    let start = Instant::now();
+    
     btree_map_test::store_with_btreeMap(trans, db);
+
+    let duration = start.elapsed();
+    println!("Time elapsed in store_function() is: {:?}", duration);
 
     let res = env.sync(true);
     match res{
@@ -116,5 +127,11 @@ fn create_db(){
     };
     println!("{}", res.entries());
 
+
+    // let res = trans.commit();
+    // match res{
+    //     Ok(file) => file,
+    //     Err(error) => panic!("Problem begin rwCursor: {:?}", error),
+    // };
 }
 

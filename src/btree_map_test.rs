@@ -14,6 +14,7 @@ use walkdir::{DirEntry, WalkDir};
 use bincode;
 use std::collections::BTreeMap;
 use libc;
+use std::time::{Duration, Instant};
 #[derive(Deserialize)]
 struct Response {
     dataset: Vec<Element>,
@@ -42,8 +43,9 @@ pub fn store_with_btreeMap(mut trans:RwTransaction, mut db:Database ){
     let mut btree:BTreeMap<u64, Vec<String>> = BTreeMap::new();
 
     let mut v:Vec<String> = Vec::new();
-    let mut file_path = "./log2json/json_directory";
-    //let mut file_path = "C:/Users/14767/master-term2/csci2270/project/log2json/json_directory";
+    //let mut file_path = "./log2json/json_directory";
+    let mut file_path = "C:/Users/14767/master-term2/csci2270/project/log2json/json_directory";
+    
 
     let walker = WalkDir::new(file_path).into_iter();
     for entry in walker.filter_entry(|e| !is_hidden(e)) {
@@ -115,20 +117,18 @@ pub fn store_with_btreeMap(mut trans:RwTransaction, mut db:Database ){
     let res = trans.commit();
     match res{
         Ok(file) => file,
-        Err(error) => panic!("Problem begin rwCursor: {:?}", error),
+        Err(error) => panic!("Problem trans commit: {:?}", error),
     };
     
 }
 
 pub fn search_with_btreeMap(mut cursor:RoCursor ){
-    let time_range = 60;
-    let mut key:u64 = 1131566461;
-    let mut key_end = key + time_range;
+    let start = Instant::now();
+
+    let mut key:u64 = 1132743501;
 
     println!("get!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    println!("key_start={}", key);
-    println!("key_end={}", key_end);
-    
+    println!("key_start={}", key);   
 
     let pair = Cursor::get(&cursor, Some(&key.to_be_bytes()), None, 16);
 
@@ -136,6 +136,8 @@ pub fn search_with_btreeMap(mut cursor:RoCursor ){
         Ok(file) => file,
         Err(error) => panic!("Problem with get: {:?}", error),
     };
+    let duration = start.elapsed();
+    println!("Time elapsed after get is: {:?}", duration);
     let (_,v) = pair;
     let v:Result<BTreeMap<u64, Vec<String>>, Box<bincode::ErrorKind>> = bincode::deserialize(v);
     let v = match v{
@@ -150,7 +152,8 @@ pub fn search_with_btreeMap(mut cursor:RoCursor ){
         },
         None => println!("{} is unmatched.", key)
     }
-  
+    let duration = start.elapsed();
+    println!("Time elapsed after print the result is: {:?}", duration);
 }
 
 pub fn test_btreeMap(mut cursor:RwCursor ){
