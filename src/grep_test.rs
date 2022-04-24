@@ -37,10 +37,14 @@ pub fn store_with_string(mut trans:RwTransaction, mut db:Database ){
     let mut key_start = 0;
     let mut key_end = 0;
     let time_range = 60;
-    let mut s = String::from("");
+    let mut s = String::new();
+    let mut count = 0;
+    //let mut file_path = "./log2json/json_directory";
+    // let mut file_path = "C:/Users/14767/master-term2/csci2270/project/log2json/json_directory";
+    let mut file_path = "C:/Users/14767/master-term2/csci2270/project/log2json/small_dir";
+    
 
-    let walker = WalkDir::new("./log2json/json_directory").into_iter();
-    //let walker = WalkDir::new("C:/Users/14767/master-term2/csci2270/project/log2json/json_directory").into_iter();
+    let walker = WalkDir::new(file_path).into_iter();
     
     for entry in walker.filter_entry(|e| !is_hidden(e)) {
         let entry = entry.unwrap();
@@ -61,33 +65,52 @@ pub fn store_with_string(mut trans:RwTransaction, mut db:Database ){
                 }
                 else {
                     if element.timestamp >= key_start && element.timestamp <= key_end {
+                        // if key_start == 1134651576&&count<100{
+                            
+                        //     println!("{}", element.timestamp);
+                        //     println!("{}", element.entry);
+                        //     count+=1;
+                        // }
                         s.push_str(&element.entry);
                         s.push_str("\n");
                     }
                     else {
-                        println!("key_start={}", key_start);
-                        println!("key_end={}", key_end);
+                        //println!("key_start={}", key_start);
+                        // println!("key_end={}", key_end);
 
-                        println!("-------------- ");
-
-                        
+                        // println!("-------------- ");
                         //println!("{}", s);
                         
-                        
-                        // let res = RwCursor::put( &mut cursor, &key_start.to_be_bytes(), &s, WriteFlags::NO_OVERWRITE);
+                        // if key_start == 1134651576{
+                        //     println!("key_start={}", key_start);
+
+                        //     println!("-------------- ");
+                        //     println!("{}", s);
+                        // }
+
+                        // if key_start == 1134651576&&count<100 {
+                        //     println!("second loop!!!!!!!!!!");
+                        //     println!("{}", element.timestamp);
+                        //     println!("{}", element.entry);
+                        //     count+=1;
+                        // }
+                        //let res = RwCursor::put( &mut cursor, &key_start.to_be_bytes(), &s, WriteFlags::NO_OVERWRITE);
                         let res = RwTransaction::put( &mut trans,db, &key_start.to_be_bytes(), &s, WriteFlags::NO_OVERWRITE);
         
                         match res{
                             Ok(file) => file,
                             Err(error) => {
 
-
+                                //println!("key_start={}", key_start);
                                 // println!("{}", v);
-                                panic!("Problem with put: {:?}", error)
+                                //println!("s={}", s);
+                                println!("Problem with put: {:?}, key_start={}", error, key_start);
+                                //panic!("Problem with put: {:?}", error)
                             },
                         };
+                        // drop(s);
                         // println!("s={}", s);
-                        s = String::from("");
+                        s = String::new();
                         key_start = element.timestamp;
                         key_end = key_start + time_range;
                         s.push_str(&element.entry);
@@ -107,8 +130,13 @@ pub fn store_with_string(mut trans:RwTransaction, mut db:Database ){
 
 pub fn search_with_string(mut cursor:RoCursor ){    
 
+    let start = Instant::now();
     let time_range = 60;
-    let mut key:u64 = 1131566461;
+    //let mut key:u64 = 1131566461;
+    //let mut key:u64 = 1131584501;
+    let mut key:u64 = 1132133562;
+    //let mut key:u64 = 1131523501;
+    
     let mut key_end = key + time_range;
 
     println!("get!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -121,6 +149,9 @@ pub fn search_with_string(mut cursor:RoCursor ){
         Ok(file) => file,
         Err(error) => panic!("Problem with get: {:?}", error),
     };
+    let duration = start.elapsed();
+    println!("Time elapsed after get is: {:?}", duration);
+
     let (_,v) = pair;
     //println!("{}", u64::from_be_bytes(v.try_into().unwrap()));
     let v = str::from_utf8(v);
@@ -131,4 +162,6 @@ pub fn search_with_string(mut cursor:RoCursor ){
 
     println!("{}", v);
 
+    let duration = start.elapsed();
+    println!("Time elapsed after print the result is: {:?}", duration);
 }

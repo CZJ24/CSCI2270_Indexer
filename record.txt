@@ -1,0 +1,18 @@
+store by string with 5gb log: 
+
+Problem with put: KeyExist, key_start=1134651576
+Problem with put: KeyExist, key_start=1131742705
+Problem with put: KeyExist, key_start=1131874255
+Time elapsed in store_function() is: 137.0845783s
+72274 entries
+
+store by btreeMap with 5gb log:
+Problem with put: KeyExist, key_start=1134651576
+Problem with put: KeyExist, key_start=1131742705
+Problem with put: KeyExist, key_start=1131874255
+Time elapsed in store_function() is: 141.9130259s
+72274 entries
+
+store by btreeMap with 35gb log:
+store use about 7000s,
+search certain timestamp cost less than 20 ms.

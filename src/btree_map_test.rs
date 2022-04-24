@@ -44,7 +44,8 @@ pub fn store_with_btreeMap(mut trans:RwTransaction, mut db:Database ){
 
     let mut v:Vec<String> = Vec::new();
     //let mut file_path = "./log2json/json_directory";
-    let mut file_path = "C:/Users/14767/master-term2/csci2270/project/log2json/json_directory";
+    //let mut file_path = "C:/Users/14767/master-term2/csci2270/project/log2json/json_directory";
+    let mut file_path = "C:/Users/14767/master-term2/csci2270/project/log2json/small_dir";
     
 
     let walker = WalkDir::new(file_path).into_iter();
@@ -99,13 +100,13 @@ pub fn store_with_btreeMap(mut trans:RwTransaction, mut db:Database ){
                             Ok(file) => file,
                             Err(error) => {
                                 
-                                panic!("Problem with put: {:?}", error)
+                                println!("Problem with put: {:?}, key_start={}", error, key_start);
                             },
                         };
                         btree = BTreeMap::new();
 
                         v = Vec::new();
-                        key_start = key_end+1;
+                        key_start = element.timestamp;
                         key_end = key_start + time_range;
                         key_tmp = element.timestamp;
                         v.push(element.entry);
@@ -125,8 +126,9 @@ pub fn store_with_btreeMap(mut trans:RwTransaction, mut db:Database ){
 pub fn search_with_btreeMap(mut cursor:RoCursor ){
     let start = Instant::now();
 
-    let mut key:u64 = 1132743501;
-
+    //let mut key:u64 = 1132133562;
+    //let mut key:u64 =  1131584501;
+    let mut key:u64 = 1131523501;
     println!("get!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     println!("key_start={}", key);   
 
@@ -144,14 +146,26 @@ pub fn search_with_btreeMap(mut cursor:RoCursor ){
         Ok(file) => file,
         Err(error) => panic!("Problem with v: {:?}", error),
     };
-    match v.get(&key) {
-        Some(review) => {
-            for (pos, e) in review.iter().enumerate() {
-                println!("{}: {:?}", pos, e);
-            }
-        },
-        None => println!("{} is unmatched.", key)
+    
+    for n in 0..61 {
+        let tmp = key+n;
+        match v.get(&tmp) {
+            Some(review) => {
+                for (pos, e) in review.iter().enumerate() {
+                    println!("{}: {:?}", pos, e);
+                }
+            },
+            None => println!("{} is unmatched.", tmp)
+        }
     }
+    // match v.get(&key) {
+    //     Some(review) => {
+    //         for (pos, e) in review.iter().enumerate() {
+    //             println!("{}: {:?}", pos, e);
+    //         }
+    //     },
+    //     None => println!("{} is unmatched.", key)
+    // }
     let duration = start.elapsed();
     println!("Time elapsed after print the result is: {:?}", duration);
 }
