@@ -46,8 +46,10 @@ pub fn store_with_btreeMap(mut trans:RwTransaction, mut db:Database ){
     //let mut file_path = "./log2json/json_directory";
     //let mut file_path = "C:/Users/14767/master-term2/csci2270/project/log2json/json_directory";
     // let mut file_path = "C:/Users/14767/master-term2/csci2270/project/log2json/small_dir";
-    for i in 0..551{
-        let d_name = format!("C:/Users/14767/master-term2/csci2270/project/log2json/small_dir/file_{}.json", i );
+    //for i in 0..551{
+    for i in 0..3521{
+        //let d_name = format!("C:/Users/14767/master-term2/csci2270/project/log2json/small_dir/file_{}.json", i );
+        let d_name = format!("C:/Users/14767/master-term2/csci2270/project/log2json/json_directory/file_{}.json", i );
         //let d_name = format!("./log2json/json_directory/file_{}.json", i );
         let mut file = File::open(d_name).unwrap();
         let mut buff = String::new();

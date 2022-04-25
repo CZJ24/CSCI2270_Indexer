@@ -46,8 +46,10 @@ pub fn store_with_string(mut trans:RwTransaction, mut db:Database ){
     //let mut file_path = "./log2json/json_directory";
     // let mut file_path = "C:/Users/14767/master-term2/csci2270/project/log2json/json_directory";
     
-    for i in 0..551{
-        let d_name = format!("C:/Users/14767/master-term2/csci2270/project/log2json/small_dir/file_{}.json", i );
+    //for i in 0..551{
+    for i in 0..3521{
+        //let d_name = format!("C:/Users/14767/master-term2/csci2270/project/log2json/small_dir/file_{}.json", i );
+        let d_name = format!("C:/Users/14767/master-term2/csci2270/project/log2json/json_directory/file_{}.json", i );
         //let d_name = format!("./log2json/json_directory/file_{}.json", i );
         let mut file = File::open(d_name).unwrap();
         let mut buff = String::new();
@@ -103,9 +105,9 @@ fn grep_function(match_text: &[u8],input_text: &str) -> Result<(), Box<dyn Error
         Ok(true)
     }))?;
 
-    // for match_element in matches.iter() {
-    //     println!("{}", match_element);
-    // }
+    for match_element in matches.iter() {
+        println!("{}", match_element);
+    }
     Ok(())
 }
 pub fn search_with_string(mut cursor:RoCursor ){    

@@ -2,7 +2,6 @@ store with string for 5gb log:
 Time elapsed in store_function() is: 142.4406905s
 48946 entries
 
-------------------------------------
 key_start=1134528001
 key_end=1134528101
 
@@ -13,12 +12,23 @@ grep with print:
 Time elapsed after get is: 9.7283ms
 
 ------------------------------------
+store with string for 35gb log:
+Time elapsed in store_function() is: 1037.3608065s
+211344
+
+key_start=1134528001
+key_end=1134528101
+
+grep without print:
+Time elapsed after get is: 6.1254ms
+
+
+------------------------------------
 
 store with BtreeMap for 5gb log:
 Time elapsed in store_function() is: 153.0528328s
 81577
 
-------------------------------------
 key_start=1134528001
 key_end=1134528101
 
@@ -27,5 +37,20 @@ Time elapsed after get is: 804.1µs
 
 grep with print:
 Time elapsed after print the result is: 4.0515ms
+
+------------------------------------
+store with BtreeMap for 35gb log:
+Time elapsed in store_function() is: 1100.6916212s
+352240
+
+
+key_start=1134528001
+key_end=1134528101
+
+grep without print:
+Time elapsed after get is: 1.0265ms
+
+grep with print:
+Time elapsed after print the result is: 5.3249ms
 
 ------------------------------------
