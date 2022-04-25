@@ -15,6 +15,11 @@ use bincode;
 use std::collections::BTreeMap;
 use libc;
 use std::time::{Duration, Instant};
+
+use std::error::Error;
+use grep_regex::RegexMatcher;
+use grep_searcher::Searcher;
+use grep_searcher::sinks::UTF8;
 #[derive(Deserialize)]
 struct Response {
     dataset: Vec<Element>,
@@ -36,90 +41,50 @@ fn is_hidden(entry: &DirEntry) -> bool {
 pub fn store_with_string(mut trans:RwTransaction, mut db:Database ){    
     let mut key_start = 0;
     let mut key_end = 0;
-    let time_range = 60;
+    let time_range = 100;
     let mut s = String::new();
-    let mut count = 0;
     //let mut file_path = "./log2json/json_directory";
     // let mut file_path = "C:/Users/14767/master-term2/csci2270/project/log2json/json_directory";
-    let mut file_path = "C:/Users/14767/master-term2/csci2270/project/log2json/small_dir";
     
-
-    let walker = WalkDir::new(file_path).into_iter();
-    
-    for entry in walker.filter_entry(|e| !is_hidden(e)) {
-        let entry = entry.unwrap();
-        if entry.metadata().unwrap().is_file() {
-            // println!("{}", entry.path().display());
-            let d_name = String::from(entry.path().to_string_lossy());
-            // println!("{}", d_name);
-            let mut file = File::open(d_name).unwrap();
-            let mut buff = String::new();
-            file.read_to_string(&mut buff).unwrap();
-            let resp: Response = serde_json::from_str(&buff).unwrap();
-            for element in resp.dataset {
-                if key_start == 0 {
-                    key_start = element.timestamp;
-                    key_end = key_start + time_range;                  
-                    s.push_str(&element.entry);
-                    s.push_str("\n");
-                }
-                else {
-                    if element.timestamp >= key_start && element.timestamp <= key_end {
-                        // if key_start == 1134651576&&count<100{
-                            
-                        //     println!("{}", element.timestamp);
-                        //     println!("{}", element.entry);
-                        //     count+=1;
-                        // }
-                        s.push_str(&element.entry);
-                        s.push_str("\n");
-                    }
-                    else {
-                        //println!("key_start={}", key_start);
-                        // println!("key_end={}", key_end);
-
-                        // println!("-------------- ");
-                        //println!("{}", s);
-                        
-                        // if key_start == 1134651576{
-                        //     println!("key_start={}", key_start);
-
-                        //     println!("-------------- ");
-                        //     println!("{}", s);
-                        // }
-
-                        // if key_start == 1134651576&&count<100 {
-                        //     println!("second loop!!!!!!!!!!");
-                        //     println!("{}", element.timestamp);
-                        //     println!("{}", element.entry);
-                        //     count+=1;
-                        // }
-                        //let res = RwCursor::put( &mut cursor, &key_start.to_be_bytes(), &s, WriteFlags::NO_OVERWRITE);
-                        let res = RwTransaction::put( &mut trans,db, &key_start.to_be_bytes(), &s, WriteFlags::NO_OVERWRITE);
+    for i in 0..551{
+        let d_name = format!("C:/Users/14767/master-term2/csci2270/project/log2json/small_dir/file_{}.json", i );
+        //let d_name = format!("./log2json/json_directory/file_{}.json", i );
+        let mut file = File::open(d_name).unwrap();
+        let mut buff = String::new();
+        file.read_to_string(&mut buff).unwrap();
+        let resp: Response = serde_json::from_str(&buff).unwrap();
+        for element in resp.dataset {
+            if key_start == 0 {
+                key_start = element.timestamp;
+                key_end = key_start + time_range-1;                  
+                s.push_str(&element.entry);
+                s.push_str("\n");
+            }
+            else {
+                while element.timestamp > key_end {
+                    let res = RwTransaction::put( &mut trans,db, &key_start.to_be_bytes(), &s, WriteFlags::NO_OVERWRITE);
         
-                        match res{
-                            Ok(file) => file,
-                            Err(error) => {
-
-                                //println!("key_start={}", key_start);
-                                // println!("{}", v);
-                                //println!("s={}", s);
-                                println!("Problem with put: {:?}, key_start={}", error, key_start);
+                    match res{
+                        Ok(file) => file,
+                        Err(error) => {
+                            println!("Problem with put: {:?}, key_start={}", error, key_start);
                                 //panic!("Problem with put: {:?}", error)
-                            },
-                        };
-                        // drop(s);
-                        // println!("s={}", s);
-                        s = String::new();
-                        key_start = element.timestamp;
-                        key_end = key_start + time_range;
-                        s.push_str(&element.entry);
-                        s.push_str("\n");
-                    }
-                }
+                        },
+                    };
+                    //println!("start = {}", key_start);
+                    //println!("end = {}", key_end);
+                    //println!("{}", s);
+                    //println!("-----------------------------------------");
+                    s = String::new();
+                    key_start = key_end+1;
+                    key_end = key_start + time_range-1;
+                }     
+                s.push_str(&element.entry);
+                s.push_str("\n");          
             }
         }
     }
+    
     let res = trans.commit();
     match res{
         Ok(file) => file,
@@ -127,15 +92,30 @@ pub fn store_with_string(mut trans:RwTransaction, mut db:Database ){
     };
 
 }
+fn grep_function(match_text: &[u8],input_text: &str) -> Result<(), Box<dyn Error>> {
+    let mut matches: Vec<String> = vec![];
+    let raw_string = format!(r"{}", input_text);
+    let matcher = RegexMatcher::new_line_matcher(&raw_string)?;
 
+    Searcher::new().search_slice(&matcher, match_text, UTF8(|_lnum, line| {
+        // We are guaranteed to find a match, so the unwrap is OK.
+        matches.push(line.to_string());
+        Ok(true)
+    }))?;
+
+    // for match_element in matches.iter() {
+    //     println!("{}", match_element);
+    // }
+    Ok(())
+}
 pub fn search_with_string(mut cursor:RoCursor ){    
 
     let start = Instant::now();
-    let time_range = 60;
-    //let mut key:u64 = 1131566461;
-    //let mut key:u64 = 1131584501;
-    let mut key:u64 = 1132133562;
-    //let mut key:u64 = 1131523501;
+    let time_range = 100;
+    
+    //let mut key:u64 = 1132524601;
+    let mut key:u64 = 1134528001;
+    //let mut key:u64 = 1135532601;
     
     let mut key_end = key + time_range;
 
@@ -149,9 +129,7 @@ pub fn search_with_string(mut cursor:RoCursor ){
         Ok(file) => file,
         Err(error) => panic!("Problem with get: {:?}", error),
     };
-    let duration = start.elapsed();
-    println!("Time elapsed after get is: {:?}", duration);
-
+    
     let (_,v) = pair;
     //println!("{}", u64::from_be_bytes(v.try_into().unwrap()));
     let v = str::from_utf8(v);
@@ -159,9 +137,12 @@ pub fn search_with_string(mut cursor:RoCursor ){
         Ok(file) => file,
         Err(error) => panic!("Problem with v: {:?}", error),
     };
-
-    println!("{}", v);
-
     let duration = start.elapsed();
-    println!("Time elapsed after print the result is: {:?}", duration);
+    println!("Time elapsed after get is: {:?}", duration);
+
+    if let Err(_e) = grep_function(v.as_bytes(), &key.to_string()) { /* */ }
+    let duration = start.elapsed();
+    println!("Time elapsed after get is: {:?}", duration);
+    // println!("{}", v);
+
 }

@@ -18,8 +18,8 @@ mod basic_test;
 
 fn main() {
 
-    create_db();
-    //open_db();
+    //create_db();
+    open_db();
     
 }
 fn open_db(){
@@ -28,8 +28,8 @@ fn open_db(){
     let env_builder = EnvironmentBuilder::set_map_size(& mut env_builder, map_size);
 
     //let path = Path::new("./env/env_btree_middle");
-    //let path = Path::new("./env/env_btree_big");
-    let path = Path::new("./env2/env_string_big");
+    let path = Path::new("./env/env_btree_big");
+    //let path = Path::new("./env2/env_string_big");
     let env = EnvironmentBuilder::open(&env_builder, path);
 
     let env = match env{
@@ -65,8 +65,8 @@ fn open_db(){
     println!("{}", res.entries());
     //let start = Instant::now();
 
-    //btree_map_test::search_with_btreeMap(cursor);
-    grep_test::search_with_string(cursor);
+    btree_map_test::search_with_btreeMap(cursor);
+    //grep_test::search_with_string(cursor);
     
     // let duration = start.elapsed();
     // println!("Time elapsed in search function() is: {:?}", duration);
@@ -112,8 +112,8 @@ fn create_db(){
     //btree_map_test::store_with_btreeMap(cursor);
     let start = Instant::now();
     
-    //btree_map_test::store_with_btreeMap(trans, db);
-    grep_test::store_with_string(trans, db);
+    btree_map_test::store_with_btreeMap(trans, db);
+    //grep_test::store_with_string(trans, db);
     let duration = start.elapsed();
     println!("Time elapsed in store_function() is: {:?}", duration);
 
