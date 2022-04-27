@@ -31,6 +31,9 @@ struct Element {
     entry: String,
 }
 
+
+const FILE_START:u64 = 1131523501;
+const TIME_RANGE:u64 = 100;
 fn is_hidden(entry: &DirEntry) -> bool {
     entry.file_name()
          .to_str()
@@ -41,7 +44,6 @@ fn is_hidden(entry: &DirEntry) -> bool {
 pub fn store_with_string(mut trans:RwTransaction, mut db:Database ){    
     let mut key_start = 0;
     let mut key_end = 0;
-    let time_range = 100;
     let mut s = String::new();
     //let mut file_path = "./log2json/json_directory";
     // let mut file_path = "C:/Users/14767/master-term2/csci2270/project/log2json/json_directory";
@@ -58,7 +60,7 @@ pub fn store_with_string(mut trans:RwTransaction, mut db:Database ){
         for element in resp.dataset {
             if key_start == 0 {
                 key_start = element.timestamp;
-                key_end = key_start + time_range-1;                  
+                key_end = key_start + TIME_RANGE-1;                  
                 s.push_str(&element.entry);
                 s.push_str("\n");
             }
@@ -79,7 +81,7 @@ pub fn store_with_string(mut trans:RwTransaction, mut db:Database ){
                     //println!("-----------------------------------------");
                     s = String::new();
                     key_start = key_end+1;
-                    key_end = key_start + time_range-1;
+                    key_end = key_start + TIME_RANGE-1;
                 }     
                 s.push_str(&element.entry);
                 s.push_str("\n");          
@@ -105,27 +107,43 @@ fn grep_function(match_text: &[u8],input_text: &str) -> Result<(), Box<dyn Error
         Ok(true)
     }))?;
 
-    for match_element in matches.iter() {
-        println!("{}", match_element);
-    }
+    // for match_element in matches.iter() {
+    //     println!("{}", match_element);
+    // }
     Ok(())
+}
+fn get_keyStart(key:u64)->u64{
+    
+    let mut diff = key-FILE_START;
+    //println!("diff={}", diff);
+    
+    let mut quotient = diff/TIME_RANGE;
+    //println!("quotient={}", quotient);
+    
+    let mut remainder = diff%TIME_RANGE;
+    //println!("remainder={}", remainder);
+    
+    let mut key_start = FILE_START + quotient*TIME_RANGE;
+    return key_start;
 }
 pub fn search_with_string(mut cursor:RoCursor ){    
 
     let start = Instant::now();
-    let time_range = 100;
     
     //let mut key:u64 = 1132524601;
-    let mut key:u64 = 1134528001;
+    //let mut key:u64 = 1134528001;
+    let mut key:u64 = 1134528051;
     //let mut key:u64 = 1135532601;
-    
-    let mut key_end = key + time_range;
+    let range = "11345280[2-4][1-9]|113452805[0-1]";
+    let mut key_start = get_keyStart(key);
+    let mut key_end = key_start + TIME_RANGE;
 
-    println!("get!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    println!("key_start={}", key);
-    println!("key_end={}", key_end);
+    // println!("get!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    // println!("key={}", key);
+    // println!("key_start={}", key_start);
+    // println!("key_end={}", key_end);
     
-    let pair = Cursor::get(&cursor, Some(&key.to_be_bytes()), None, 16);
+    let pair = Cursor::get(&cursor, Some(&key_start.to_be_bytes()), None, 16);
 
     let pair = match pair{
         Ok(file) => file,
@@ -140,11 +158,13 @@ pub fn search_with_string(mut cursor:RoCursor ){
         Err(error) => panic!("Problem with v: {:?}", error),
     };
     let duration = start.elapsed();
-    println!("Time elapsed after get is: {:?}", duration);
+    //println!("Time elapsed after get is: {:?}", duration);
 
-    if let Err(_e) = grep_function(v.as_bytes(), &key.to_string()) { /* */ }
+    //if let Err(_e) = grep_function(v.as_bytes(), &key.to_string()) { /* */ }
+
+    if let Err(_e) = grep_function(v.as_bytes(), range) { /* */ }
     let duration = start.elapsed();
     println!("Time elapsed after get is: {:?}", duration);
-    // println!("{}", v);
+    //println!("{}", v);
 
 }

@@ -27,10 +27,10 @@ fn open_db(){
     let mut env_builder = Environment::new();
     let env_builder = EnvironmentBuilder::set_map_size(& mut env_builder, map_size);
 
-    //let path = Path::new("../env/env_btree_big");
-    //let path = Path::new("./env/env_btree_big");
-    //let path = Path::new("./env2/env_string_big");
-    let path = Path::new("../env2/env_string_big");
+    //let path = Path::new("../5G/env/env_btree_big");
+    //let path = Path::new("../35G/env/env_btree_big");
+    let path = Path::new("../5G/env2/env_string_big");
+    //let path = Path::new("../35G/env2/env_string_big");
     let env = EnvironmentBuilder::open(&env_builder, path);
 
     let env = match env{
@@ -78,10 +78,10 @@ fn create_db(){
     let mut env_builder = Environment::new();
     let env_builder = EnvironmentBuilder::set_map_size(& mut env_builder, map_size);
 
-    //let path = Path::new("../env/env_btree_big");
-    //let path = Path::new("./env/env_btree_big");
-    //let path = Path::new("./env2/env_string_big");
-    let path = Path::new("../env2/env_string_big");
+    //let path = Path::new("../5G/env/env_btree_big");
+    //let path = Path::new("../35G/env/env_btree_big");
+    let path = Path::new("../5G/env2/env_string_big");
+    //let path = Path::new("../35G/env2/env_string_big");
     let env = EnvironmentBuilder::open(&env_builder, path);
     let env = match env{
         Ok(file) => file,

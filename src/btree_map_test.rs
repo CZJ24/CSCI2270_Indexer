@@ -26,6 +26,8 @@ struct Element {
     entry: String,
 }
 
+const FILE_START:u64 = 1131523501;
+const TIME_RANGE:u64 = 100;
 fn is_hidden(entry: &DirEntry) -> bool {
     entry.file_name()
          .to_str()
@@ -39,7 +41,7 @@ pub fn store_with_btreeMap(mut trans:RwTransaction, mut db:Database ){
     let mut key_start = 0;
     let mut key_end = 0;
     let mut key_tmp:u64 = 0;
-    let time_range = 60;
+
     let mut btree:BTreeMap<u64, Vec<String>> = BTreeMap::new();
 
     let mut v:Vec<String> = Vec::new();
@@ -58,7 +60,7 @@ pub fn store_with_btreeMap(mut trans:RwTransaction, mut db:Database ){
         for element in resp.dataset {
             if key_start == 0 {
                 key_start = element.timestamp;
-                key_end = key_start + time_range-1;                  
+                key_end = key_start + TIME_RANGE-1;                  
                 v.push(element.entry);
             }
             else {
@@ -83,7 +85,7 @@ pub fn store_with_btreeMap(mut trans:RwTransaction, mut db:Database ){
                     btree = BTreeMap::new();
                     v= Vec::new();
                     key_start = key_end+1;
-                    key_end = key_start + time_range-1;
+                    key_end = key_start + TIME_RANGE-1;
                     key_tmp = element.timestamp;
                 }     
                 if element.timestamp==key_tmp{
@@ -106,17 +108,34 @@ pub fn store_with_btreeMap(mut trans:RwTransaction, mut db:Database ){
     };
     
 }
-
+fn get_keyStart(key:u64)->u64{
+    
+    let mut diff = key-FILE_START;
+    println!("diff={}", diff);
+    
+    let mut quotient = diff/TIME_RANGE;
+    println!("quotient={}", quotient);
+    
+    let mut remainder = diff%TIME_RANGE;
+    println!("remainder={}", remainder);
+    
+    let mut key_start = FILE_START + quotient*TIME_RANGE;
+    return key_start;
+}
 pub fn search_with_btreeMap(mut cursor:RoCursor ){
     let start = Instant::now();
 
     //let mut key:u64 = 1132524601;
     let mut key:u64 = 1134528001;
     //let mut key:u64 = 1135532601;
+    let mut key_start = get_keyStart(key);
+    let mut key_end = key_start + TIME_RANGE;
     println!("get!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    println!("key_start={}", key);   
+    println!("key={}", key);
+    println!("key_start={}", key_start);
+    println!("key_end={}", key_end);  
 
-    let pair = Cursor::get(&cursor, Some(&key.to_be_bytes()), None, 16);
+    let pair = Cursor::get(&cursor, Some(&key_start.to_be_bytes()), None, 16);
 
     let pair = match pair{
         Ok(file) => file,
