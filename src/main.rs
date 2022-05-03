@@ -27,9 +27,9 @@ fn open_db(){
     let mut env_builder = Environment::new();
     let env_builder = EnvironmentBuilder::set_map_size(& mut env_builder, map_size);
 
-    //let path = Path::new("../5G/env/env_btree_big");
+    let path = Path::new("../5G/env/env_btree_big");
     //let path = Path::new("../35G/env/env_btree_big");
-    let path = Path::new("../5G/env2/env_string_big");
+    //let path = Path::new("../5G/env2/env_string_big");
     //let path = Path::new("../35G/env2/env_string_big");
     let env = EnvironmentBuilder::open(&env_builder, path);
 
@@ -66,8 +66,8 @@ fn open_db(){
     println!("{}", res.entries());
     //let start = Instant::now();
 
-    //btree_map_test::search_with_btreeMap(cursor);
-    grep_test::search_with_string(cursor);
+    btree_map_test::search_with_btreeMap(cursor);
+    //grep_test::search_with_string(cursor);
     
     // let duration = start.elapsed();
     // println!("Time elapsed in search function() is: {:?}", duration);
@@ -80,8 +80,9 @@ fn create_db(){
 
     //let path = Path::new("../5G/env/env_btree_big");
     //let path = Path::new("../35G/env/env_btree_big");
-    let path = Path::new("../5G/env2/env_string_big");
+    //let path = Path::new("../5G/env2/env_string_big");
     //let path = Path::new("../35G/env2/env_string_big");
+    let path = Path::new("");
     let env = EnvironmentBuilder::open(&env_builder, path);
     let env = match env{
         Ok(file) => file,
