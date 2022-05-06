@@ -104,14 +104,6 @@ fn create_db(){
         Err(error) => panic!("Problem begin rwTransaction: {:?}", error),
     };
 
-    // let cursor = RwTransaction::open_rw_cursor(& mut trans,db);
-
-    // let mut cursor = match cursor{
-    //     Ok(file) => file,
-    //     Err(error) => panic!("Problem begin rwCursor: {:?}", error),
-    // };
-
-    //btree_map_test::store_with_btreeMap(cursor);
     let start = Instant::now();
     
     //btree_map_test::store_with_btreeMap(trans, db);
